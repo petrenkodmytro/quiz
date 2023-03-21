@@ -54,6 +54,7 @@ const questions = [
 const headerContainer = document.querySelector("#header");
 const listContainer = document.querySelector("#list");
 const submitBtn = document.querySelector("#submit");
+const listProgress = document.querySelector(".progress");
 
 let score = 0; // corect answer
 let questionIndex = 0; // current question
@@ -68,12 +69,8 @@ function clearPage() {
 }
 
 function showQuestion() {
-  //   questions[questionIndex].question;
-  //   questions[questionIndex].answers;
-
-  console.log(questions[questionIndex].question);
-
-  const headerTemplate = `<h2 class="title">${questions[questionIndex].question}</h2>`;
+  const headerTemplate = `
+  <h2 class="title">${questions[questionIndex].question}</h2>`;
   headerContainer.innerHTML = headerTemplate;
 
   for (const [index, answer] of questions[questionIndex].answers.entries()) {
@@ -94,17 +91,21 @@ function checkAnawer() {
   const checkedRadio = listContainer.querySelector('input[type="radio"]:checked');
 
   if (!checkedRadio) {
-	submitBtn.blur()
+    submitBtn.blur();
     // alert message
     return;
   }
 
   const userAnswer = Number(checkedRadio.value);
   console.log(userAnswer);
+  console.log(questionIndex);
+  console.log(listProgress.children[questionIndex]);
 
   if (userAnswer === questions[questionIndex].correct) {
     score += 1;
-    // сделать сверху шкалу правильное - зеленым, неправильное - красным
+    listProgress.children[questionIndex].style.backgroundColor = "green";
+  } else {
+    listProgress.children[questionIndex].style.backgroundColor = "red";
   }
 
   if (questionIndex !== questions.length - 1) {
