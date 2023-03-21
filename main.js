@@ -94,6 +94,7 @@ function checkAnawer() {
   const checkedRadio = listContainer.querySelector('input[type="radio"]:checked');
 
   if (!checkedRadio) {
+	submitBtn.blur()
     // alert message
     return;
   }
